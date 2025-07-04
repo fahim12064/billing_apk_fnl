@@ -18,22 +18,22 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.10
+          python-version: '3.10'
 
       - name: Install dependencies
         run: |
           sudo apt update
-          sudo apt install -y git zip unzip openjdk-17-jdk
+          sudo apt install -y zip unzip openjdk-17-jdk
+          pip install --upgrade pip
           pip install buildozer cython
-          pip install kivy kivymd
+          pip install kivy==2.3.0 kivymd
 
       - name: Initialize Buildozer
-        run: |
-          buildozer init
+        run: buildozer init
 
-      - name: Override buildozer.spec
+      - name: Overwrite buildozer.spec
         run: |
-          echo "
+          cat > buildozer.spec <<EOF
 [app]
 title = Khan Optical
 package.name = khanoptical
@@ -51,12 +51,10 @@ android.ndk = 25b
 android.archs = arm64-v8a,armeabi-v7a
 android.build_tools_version = 34.0.0
 android.gradle_dependencies = com.google.android.material:material:1.2.1
-# (you can add more here if needed)
-" > buildozer.spec
+EOF
 
       - name: Build APK
-        run: |
-          buildozer android debug
+        run: buildozer android debug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
