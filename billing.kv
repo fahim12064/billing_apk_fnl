@@ -1,0 +1,615 @@
+#:kivy 2.3.1
+#:import MDBoxLayout kivymd.uix.boxlayout
+#:import MDLabel kivymd.uix.label
+#:import MDTextField kivymd.uix.textfield
+#:import MDRaisedButton kivymd.uix.button
+#:import MDFlatButton kivymd.uix.button
+#:import MDScrollView kivymd.uix.scrollview
+#:import Spinner kivy.uix.spinner
+
+<MainScreen>:
+    MDBoxLayout:
+        orientation: 'vertical'
+        padding: dp(20)
+        spacing: dp(15)
+        md_bg_color: 0.95, 0.95, 0.95, 1  # Light gray background for modern look
+
+        MDLabel:
+            text: "KHAN's Optical"
+            font_style: 'H4'
+            bold: True
+            halign: 'center'
+            theme_text_color: "Primary"
+            size_hint_y: None
+            height: dp(60)
+
+        MDLabel:
+            text: "Satkhira, Khulna"
+            font_style: 'Subtitle1'
+            halign: 'center'
+            theme_text_color: "Secondary"
+            size_hint_y: None
+            height: dp(30)
+
+        MDRaisedButton:
+            text: "Log in as Admin"
+            size_hint: 0.3, None
+            height: dp(40)
+            pos_hint: {'center_x': 0.5}
+            md_bg_color: app.theme_cls.primary_color
+            text_color: 1, 1, 1, 1
+            font_size: dp(14)
+            elevation: 8
+            on_press: root.manager.current = 'admin_login'
+
+        MDRaisedButton:
+            text: "Log in as User"
+            size_hint: 0.3, None
+            height: dp(40)
+            pos_hint: {'center_x': 0.5}
+            md_bg_color: app.theme_cls.primary_color
+            text_color: 1, 1, 1, 1
+            font_size: dp(14)
+            elevation: 8
+            on_press: root.manager.current = 'user_login'
+
+<AdminLoginScreen>:
+    MDBoxLayout:
+        orientation: 'vertical'
+        padding: dp(20)
+        spacing: dp(15)
+        md_bg_color: 0.95, 0.95, 0.95, 1
+
+        MDLabel:
+            text: "Admin Login"
+            font_style: 'H5'
+            halign: 'center'
+            theme_text_color: "Primary"
+            size_hint_y: None
+            height: dp(50)
+
+        MDTextField:
+            id: username
+            hint_text: "Username"
+            mode: "rectangle"
+            size_hint: 0.8, None
+            height: dp(40)
+            pos_hint: {'center_x': 0.5}
+
+        MDTextField:
+            id: password
+            hint_text: "Password"
+            password: True
+            mode: "rectangle"
+            size_hint: 0.8, None
+            height: dp(40)
+            pos_hint: {'center_x': 0.5}
+
+        MDLabel:
+            id: login_error
+            text: ""
+            theme_text_color: "Error"
+            halign: 'center'
+            size_hint_y: None
+            height: dp(20)
+
+        MDRaisedButton:
+            text: "Login"
+            size_hint: 0.3, None
+            height: dp(40)
+            pos_hint: {'center_x': 0.5}
+            md_bg_color: app.theme_cls.primary_color
+            text_color: 1, 1, 1, 1
+            font_size: dp(14)
+            elevation: 8
+            on_press: root.verify_credentials(username.text, password.text)
+
+        MDRaisedButton:
+            text: "Back"
+            size_hint: 0.3, None
+            height: dp(40)
+            pos_hint: {'center_x': 0.5}
+            md_bg_color: app.theme_cls.accent_color
+            text_color: 1, 1, 1, 1
+            font_size: dp(14)
+            elevation: 8
+            on_press: root.manager.current = 'main'
+
+        MDLabel:
+            text: "Apply at fahimahmed1206@gmail.com with your name and address to get admin credentials."
+            font_style: 'Caption'
+            halign: 'center'
+            theme_text_color: "Secondary"
+            size_hint_y: None
+            height: dp(40)
+
+<PinSetScreen>:
+    MDBoxLayout:
+        orientation: 'vertical'
+        padding: dp(20)
+        spacing: dp(15)
+        md_bg_color: 0.95, 0.95, 0.95, 1
+
+        MDLabel:
+            text: "Set 4-Digit PIN"
+            font_style: 'H5'
+            halign: 'center'
+            theme_text_color: "Primary"
+            size_hint_y: None
+            height: dp(50)
+
+        MDTextField:
+            id: pin
+            hint_text: "Enter 4-digit PIN"
+            password: True
+            mode: "rectangle"
+            size_hint: 0.8, None
+            height: dp(40)
+            pos_hint: {'center_x': 0.5}
+
+        MDLabel:
+            id: pin_error
+            text: ""
+            theme_text_color: "Error"
+            halign: 'center'
+            size_hint_y: None
+            height: dp(20)
+
+        MDRaisedButton:
+            text: "Set PIN"
+            size_hint: 0.3, None
+            height: dp(40)
+            pos_hint: {'center_x': 0.5}
+            md_bg_color: app.theme_cls.primary_color
+            text_color: 1, 1, 1, 1
+            font_size: dp(14)
+            elevation: 8
+            on_press: root.set_pin(pin.text)
+
+        MDRaisedButton:
+            text: "Back"
+            size_hint: 0.3, None
+            height: dp(40)
+            pos_hint: {'center_x': 0.5}
+            md_bg_color: app.theme_cls.accent_color
+            text_color: 1, 1, 1, 1
+            font_size: dp(14)
+            elevation: 8
+            on_press: root.manager.current = 'main'
+
+<AdminDashboardScreen>:
+    MDBoxLayout:
+        orientation: 'vertical'
+        padding: dp(20)
+        spacing: dp(15)
+        md_bg_color: 0.95, 0.95, 0.95, 1
+
+        MDLabel:
+            text: "Admin Dashboard"
+            font_style: 'H5'
+            halign: 'center'
+            theme_text_color: "Primary"
+            size_hint_y: None
+            height: dp(50)
+
+        MDRaisedButton:
+            text: "Add User"
+            size_hint: 0.3, None
+            height: dp(40)
+            pos_hint: {'center_x': 0.5}
+            md_bg_color: app.theme_cls.primary_color
+            text_color: 1, 1, 1, 1
+            font_size: dp(14)
+            elevation: 8
+            on_press: root.manager.current = 'add_user'
+
+        MDRaisedButton:
+            text: "Bill Update"
+            size_hint: 0.3, None
+            height: dp(40)
+            pos_hint: {'center_x': 0.5}
+            md_bg_color: app.theme_cls.primary_color
+            text_color: 1, 1, 1, 1
+            font_size: dp(14)
+            elevation: 8
+            on_press: root.manager.current = 'bill_update'
+
+        MDRaisedButton:
+            text: "User List"
+            size_hint: 0.3, None
+            height: dp(40)
+            pos_hint: {'center_x': 0.5}
+            md_bg_color: app.theme_cls.primary_color
+            text_color: 1, 1, 1, 1
+            font_size: dp(14)
+            elevation: 8
+            on_press: root.manager.current = 'user_list'
+
+        MDRaisedButton:
+            text: "Pin Change"
+            size_hint: 0.3, None
+            height: dp(40)
+            pos_hint: {'center_x': 0.5}
+            md_bg_color: app.theme_cls.primary_color
+            text_color: 1, 1, 1, 1
+            font_size: dp(14)
+            elevation: 8
+            on_press: root.manager.current = 'pin_change'
+
+        MDRaisedButton:
+            text: "Log Out"
+            size_hint: 0.3, None
+            height: dp(40)
+            pos_hint: {'center_x': 0.5}
+            md_bg_color: app.theme_cls.accent_color
+            text_color: 1, 1, 1, 1
+            font_size: dp(14)
+            elevation: 8
+            on_press: root.manager.current = 'main'
+
+<AddUserScreen>:
+    MDBoxLayout:
+        orientation: 'vertical'
+        padding: dp(20)
+        spacing: dp(15)
+        md_bg_color: 0.95, 0.95, 0.95, 1
+
+        MDLabel:
+            text: "Add New User"
+            font_style: 'H5'
+            halign: 'center'
+            theme_text_color: "Primary"
+            size_hint_y: None
+            height: dp(50)
+
+        MDTextField:
+            id: username
+            hint_text: "Username"
+            mode: "rectangle"
+            size_hint: 0.8, None
+            height: dp(40)
+            pos_hint: {'center_x': 0.5}
+
+        MDTextField:
+            id: ip_name
+            hint_text: "IP Name"
+            mode: "rectangle"
+            size_hint: 0.8, None
+            height: dp(40)
+            pos_hint: {'center_x': 0.5}
+
+        MDTextField:
+            id: ip_password
+            hint_text: "IP Password"
+            password: True
+            mode: "rectangle"
+            size_hint: 0.8, None
+            height: dp(40)
+            pos_hint: {'center_x': 0.5}
+
+        MDTextField:
+            id: pin
+            hint_text: "Admin PIN"
+            password: True
+            mode: "rectangle"
+            size_hint: 0.8, None
+            height: dp(40)
+            pos_hint: {'center_x': 0.5}
+
+        MDLabel:
+            id: add_user_error
+            text: ""
+            theme_text_color: "Error"
+            halign: 'center'
+            size_hint_y: None
+            height: dp(20)
+
+        MDRaisedButton:
+            text: "Add User"
+            size_hint: 0.3, None
+            height: dp(40)
+            pos_hint: {'center_x': 0.5}
+            md_bg_color: app.theme_cls.primary_color
+            text_color: 1, 1, 1, 1
+            font_size: dp(14)
+            elevation: 8
+            on_press: root.add_user(username.text, ip_name.text, ip_password.text, pin.text)
+
+        MDRaisedButton:
+            text: "Back"
+            size_hint: 0.3, None
+            height: dp(40)
+            pos_hint: {'center_x': 0.5}
+            md_bg_color: app.theme_cls.accent_color
+            text_color: 1, 1, 1, 1
+            font_size: dp(14)
+            elevation: 8
+            on_press: root.manager.current = 'admin_dashboard'
+
+<UserListScreen>:
+    MDBoxLayout:
+        orientation: 'vertical'
+        padding: dp(20)
+        spacing: dp(15)
+        md_bg_color: 0.95, 0.95, 0.95, 1
+
+        MDLabel:
+            text: "User List"
+            font_style: 'H5'
+            halign: 'center'
+            theme_text_color: "Primary"
+            size_hint_y: None
+            height: dp(50)
+
+        MDTextField:
+            id: search_box
+            hint_text: "Search by Name"
+            mode: "rectangle"
+            size_hint: 0.8, None
+            height: dp(40)
+            pos_hint: {'center_x': 0.5}
+            on_text: root.filter_user_list(self.text)
+
+        MDScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+
+            GridLayout:
+                id: user_table
+                cols: 6
+                size_hint_y: None
+                height: self.minimum_height
+                row_default_height: dp(30)
+                spacing: dp(5)
+                padding: dp(5)
+
+        MDRaisedButton:
+            text: "Back"
+            size_hint: 0.3, None
+            height: dp(40)
+            pos_hint: {'center_x': 0.5}
+            md_bg_color: app.theme_cls.accent_color
+            text_color: 1, 1, 1, 1
+            font_size: dp(14)
+            elevation: 8
+            on_press: root.manager.current = 'admin_dashboard'
+
+<BillUpdateScreen>:
+    MDBoxLayout:
+        orientation: 'vertical'
+        padding: dp(20)
+        spacing: dp(15)
+        md_bg_color: 0.95, 0.95, 0.95, 1
+
+        MDLabel:
+            text: "Update Bill"
+            font_style: 'H5'
+            halign: 'center'
+            theme_text_color: "Primary"
+            size_hint_y: None
+            height: dp(50)
+
+        MDTextField:
+            id: ip_name
+            hint_text: "IP Name"
+            mode: "rectangle"
+            size_hint: 0.8, None
+            height: dp(40)
+            pos_hint: {'center_x': 0.5}
+
+        Spinner:
+            id: month
+            text: "Select Month"
+            values: ['2025-01', '2025-02', '2025-03', '2025-04', '2025-05', '2025-06', '2025-07', '2025-08', '2025-09', '2025-10', '2025-11', '2025-12']
+            size_hint: 0.8, None
+            height: dp(40)
+            pos_hint: {'center_x': 0.5}
+
+        MDTextField:
+            id: pin
+            hint_text: "Admin PIN"
+            password: True
+            mode: "rectangle"
+            size_hint: 0.8, None
+            height: dp(40)
+            pos_hint: {'center_x': 0.5}
+
+        MDLabel:
+            id: bill_error
+            text: ""
+            theme_text_color: "Error"
+            halign: 'center'
+            size_hint_y: None
+            height: dp(20)
+
+        MDRaisedButton:
+            text: "Update Bill"
+            size_hint: 0.3, None
+            height: dp(40)
+            pos_hint: {'center_x': 0.5}
+            md_bg_color: app.theme_cls.primary_color
+            text_color: 1, 1, 1, 1
+            font_size: dp(14)
+            elevation: 8
+            on_press: root.update_bill(ip_name.text, month.text, pin.text)
+
+        MDRaisedButton:
+            text: "Back"
+            size_hint: 0.3, None
+            height: dp(40)
+            pos_hint: {'center_x': 0.5}
+            md_bg_color: app.theme_cls.accent_color
+            text_color: 1, 1, 1, 1
+            font_size: dp(14)
+            elevation: 8
+            on_press: root.manager.current = 'admin_dashboard'
+
+<ViewProfileScreen>:
+    MDBoxLayout:
+        orientation: 'vertical'
+        padding: dp(20)
+        spacing: dp(15)
+        md_bg_color: 0.95, 0.95, 0.95, 1
+
+        MDLabel:
+            text: "User Profile"
+            font_style: 'H5'
+            halign: 'center'
+            theme_text_color: "Primary"
+            size_hint_y: None
+            height: dp(50)
+
+        MDLabel:
+            id: profile_info
+            text: ""
+            halign: 'left'
+            valign: 'top'
+            text_size: self.width, None
+            size_hint_y: None
+            height: self.texture_size[1]
+            theme_text_color: "Secondary"
+
+        MDRaisedButton:
+            text: "Back"
+            size_hint: 0.3, None
+            height: dp(40)
+            pos_hint: {'center_x': 0.5}
+            md_bg_color: app.theme_cls.accent_color
+            text_color: 1, 1, 1, 1
+            font_size: dp(14)
+            elevation: 8
+            on_press: root.manager.current = 'admin_dashboard'
+
+<PinChangeScreen>:
+    MDBoxLayout:
+        orientation: 'vertical'
+        padding: dp(20)
+        spacing: dp(15)
+        md_bg_color: 0.95, 0.95, 0.95, 1
+
+        MDLabel:
+            text: "Change PIN"
+            font_style: 'H5'
+            halign: 'center'
+            theme_text_color: "Primary"
+            size_hint_y: None
+            height: dp(50)
+
+        MDTextField:
+            id: password
+            hint_text: "Admin Password"
+            password: True
+            mode: "rectangle"
+            size_hint: 0.8, None
+            height: dp(40)
+            pos_hint: {'center_x': 0.5}
+
+        MDTextField:
+            id: old_pin
+            hint_text: "Old PIN"
+            password: True
+            mode: "rectangle"
+            size_hint: 0.8, None
+            height: dp(40)
+            pos_hint: {'center_x': 0.5}
+
+        MDTextField:
+            id: new_pin
+            hint_text: "New 4-digit PIN"
+            password: True
+            mode: "rectangle"
+            size_hint: 0.8, None
+            height: dp(40)
+            pos_hint: {'center_x': 0.5}
+
+        MDLabel:
+            id: pin_change_error
+            text: ""
+            theme_text_color: "Error"
+            halign: 'center'
+            size_hint_y: None
+            height: dp(20)
+
+        MDRaisedButton:
+            text: "Change PIN"
+            size_hint: 0.3, None
+            height: dp(40)
+            pos_hint: {'center_x': 0.5}
+            md_bg_color: app.theme_cls.primary_color
+            text_color: 1, 1, 1, 1
+            font_size: dp(14)
+            elevation: 8
+            on_press: root.change_pin(password.text, old_pin.text, new_pin.text)
+
+        MDRaisedButton:
+            text: "Back"
+            size_hint: 0.3, None
+            height: dp(40)
+            pos_hint: {'center_x': 0.5}
+            md_bg_color: app.theme_cls.accent_color
+            text_color: 1, 1, 1, 1
+            font_size: dp(14)
+            elevation: 8
+            on_press: root.manager.current = 'admin_dashboard'
+
+<UserLoginScreen>:
+    MDBoxLayout:
+        orientation: 'vertical'
+        padding: dp(20)
+        spacing: dp(15)
+        md_bg_color: 0.95, 0.95, 0.95, 1
+
+        MDLabel:
+            text: "User Login"
+            font_style: 'H5'
+            halign: 'center'
+            theme_text_color: "Primary"
+            size_hint_y: None
+            height: dp(50)
+
+        MDTextField:
+            id: ip_name
+            hint_text: "IP Name"
+            mode: "rectangle"
+            size_hint: 0.8, None
+            height: dp(40)
+            pos_hint: {'center_x': 0.5}
+
+        MDTextField:
+            id: password
+            hint_text: "Password"
+            password: True
+            mode: "rectangle"
+            size_hint: 0.8, None
+            height: dp(40)
+            pos_hint: {'center_x': 0.5}
+
+        MDLabel:
+            id: user_login_error
+            text: ""
+            theme_text_color: "Error"
+            halign: 'center'
+            size_hint_y: None
+            height: dp(20)
+
+        MDRaisedButton:
+            text: "Login"
+            size_hint: 0.3, None
+            height: dp(40)
+            pos_hint: {'center_x': 0.5}
+            md_bg_color: app.theme_cls.primary_color
+            text_color: 1, 1, 1, 1
+            font_size: dp(14)
+            elevation: 8
+            on_press: root.verify_user(ip_name.text, password.text)
+
+        MDRaisedButton:
+            text: "Back"
+            size_hint: 0.3, None
+            height: dp(40)
+            pos_hint: {'center_x': 0.5}
+            md_bg_color: app.theme_cls.accent_color
+            text_color: 1, 1, 1, 1
+            font_size: dp(14)
+            elevation: 8
+            on_press: root.manager.current = 'main'
